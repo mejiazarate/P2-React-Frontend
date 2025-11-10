@@ -15,10 +15,10 @@ const BitacoraList: React.FC = () => {
       setLoading(true);
       setError(null);
       const data = await fetchBitacoras();
-      console.log('datae es ', data);
+
 
       // Ensure data is an array, if not, default to an empty array
-      //setEntries(Array.isArray(data) ? data : []);
+      setEntries(Array.isArray(data) ? data : []);
     } catch (err) {
       const uiError = toUiError(err);
       setError(uiError.message);

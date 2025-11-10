@@ -1,0 +1,20 @@
+instruccciones
+1producto
+
+1 rol
+1.1 usuario
+
+
+
+    {
+      title: 'Dashboard y Analytics',
+      icon: faChartBar,
+      subItems: [
+        { to: '/administrador/analytics/ventas', title: 'Gráficos de Ventas', icon: faChartLine },
+        { to: '/administrador/analytics/kpis', title: 'KPIs en Tiempo Real', icon: faTrophy },
+        { to: '/administrador/analytics/productos', title: 'Top Productos', icon: faBox },
+        { to: '/administrador/analytics/clientes', title: 'Top Clientes', icon: faUsers },
+        { to: '/administrador/analytics/personalizar', title: 'Personalizar Dashboard', icon: faGear },
+      ],
+    },
+    

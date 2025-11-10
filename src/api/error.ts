@@ -40,7 +40,7 @@ export function toUiError(err: unknown): UiError {
 
   // Si no hay respuesta del servidor pero sí una solicitud, significa que no hay conexión
   if (ax?.request) return { message: 'No hay conexión con el servidor' }
-  
+
   // En cualquier otro caso, devolvemos un mensaje de error genérico
   return { message: (ax as any)?.message || 'Error desconocido' }
 } 

@@ -6,8 +6,7 @@ export interface Bitacora {
   usuario: CustomUser; // ¡Aquí está el cambio clave! El objeto usuario completo
   ip: string | null;
   device: string | null;
-  // Si tienes DetalleBitacora, también podrías anidarlo aquí si el serializer lo permitiera
-  // detallebitacoras?: DetalleBitacora[];
+
 }
 
 // Puedes mantener CustomUser como lo tienes, o simplificarlo si solo necesitas unos pocos campos

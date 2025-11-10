@@ -1,4 +1,3 @@
-// src/pages/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -13,6 +12,7 @@ const Login: React.FC = () => {
   const [topError, setTopError] = useState<string>('');
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({});
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // Estado para alternar mostrar contraseña
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +27,8 @@ const Login: React.FC = () => {
       if (user) await signout();
 
       const me = await signin(username, password);
-
+      console.log(me.rol.nombre,'is 0');
+      
       if (!me.rol) {
         navigate('/unauthorized', { replace: true });
         return;
@@ -37,19 +38,9 @@ const Login: React.FC = () => {
         case 'Administrador':
           navigate('/administrador', { replace: true });
           break;
-        case 'Propietario':
-          navigate('/propietario', { replace: true });
+        case 'Cliente':
+          navigate('/cliente', { replace: true });
           break;
-          case 'Inquilino':
-          navigate('/inquilino', { replace: true });
-          break;
-             case 'Seguridad':
-          navigate('/seguridad', { replace: true });
-          break;
-             case 'Trabajador':
-          navigate('/trabajador', { replace: true });
-          break;
-       
         default:
           navigate('/unauthorized', { replace: true });
       }
@@ -98,14 +89,53 @@ const Login: React.FC = () => {
             <label className="block text-gray-700 text-sm font-medium mb-1">
               Contraseña
             </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
-              placeholder="Ingresa tu contraseña"
-              disabled={isLoading}
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'} // Alterna entre 'text' y 'password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150"
+                placeholder="Ingresa tu contraseña"
+                disabled={isLoading}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)} // Alterna el estado de mostrar contraseña
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+              >
+                {showPassword ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="h-5 w-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M15 12c0 3.866-3.134 7-7 7S1 15.866 1 12s3.134-7 7-7 7 3.134 7 7z"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    className="h-5 w-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M15 12c0 3.866-3.134 7-7 7S1 15.866 1 12s3.134-7 7-7 7 3.134 7 7z"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
             {formErrors.password?.map((m, i) => (
               <p key={i} className="text-red-600 text-xs mt-1">
                 {m}

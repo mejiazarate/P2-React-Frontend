@@ -9,7 +9,11 @@ export const fetchUsers = async (): Promise<CustomUserResponse[]> => {
   const response = await axiosInstance.get<CustomUserResponse[]>('/usuarios/');
   return response.data;
 };
-
+// ✅ Fetch user profile by ID (nuevo endpoint 'perfil')
+export const fetchUserProfile = async (id: number): Promise<CustomUserResponse> => {
+  const response = await axiosInstance.get<CustomUserResponse>(`/usuarios/${id}/perfil/`);
+  return response.data;
+};
 // ✅ Fetch single user by ID
 export const fetchUser = async (id: number): Promise<CustomUserResponse> => {
   const response = await axiosInstance.get<CustomUserResponse>(`/usuarios/${id}`);
